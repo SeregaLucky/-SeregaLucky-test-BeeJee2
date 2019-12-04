@@ -1,0 +1,21 @@
+.contPag {
+  display: flex;
+  justify-content: center;
+}
+.pagination {
+  display: flex;
+}
+.pagination a {
+  display: block;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.pagination a:focus,
+.pagination a:hover {
+  background: #fff;
+  box-shadow: inset 0px 0px 0px 1px #dddddd;
+}
+.linkActive {
+  background: #fff;
+  box-shadow: inset 0px 0px 0px 1px #87ceeb;
+}

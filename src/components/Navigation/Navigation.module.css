@@ -1,0 +1,22 @@
+.navigation {
+  background: linear-gradient(90deg, #325262, #19272f);
+  padding: 10px 0;
+}
+.list {
+  display: flex;
+}
+.link {
+  display: block;
+  padding: 14px 20px;
+  color: #fff;
+  border-radius: 25px;
+}
+.ilink:focus,
+.link:hover {
+  transition: 0.2s;
+  background: rgb(255, 255, 255, 0.3);
+}
+.link.linkActive {
+  color: #000;
+  background: #fdd700;
+}
