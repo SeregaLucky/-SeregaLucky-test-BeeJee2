@@ -109,7 +109,7 @@ class ListItemTasks extends Component {
           </p>
           {isChangeTextItem && (
             <p>
-              <b>Отредактированная пдминистратором</b>
+              <b>Отредактированная администратором</b>
             </p>
           )}
 
