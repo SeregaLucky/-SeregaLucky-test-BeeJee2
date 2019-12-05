@@ -164,6 +164,7 @@ class FormPage extends Component {
  * CONNECT
  */
 const mapStateToProps = state => ({
+  newTask: selectors.getNewTask(state),
   loading: selectors.getIsLoading(state),
 });
 
