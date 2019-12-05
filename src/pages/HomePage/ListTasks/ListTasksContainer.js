@@ -10,6 +10,7 @@ import selectors from '../../../redux/tasks/tasksSelectors';
 import selectorsLogin from '../../../redux/login/loginSelectors';
 /* import - COMPONENT */
 import ListTasks from './ListTasks';
+import Spinner from '../../../components/Spinner/Spinner';
 
 /*
  * COMPONENT
@@ -22,6 +23,7 @@ class ListTasksContainer extends Component {
 
   static propTypes = {
     listTasks: T.arrayOf(T.shape).isRequired,
+    loading: T.bool.isRequired,
     tokenIsEnd: T.shape(),
     errorNow: T.shape(),
   };
@@ -48,9 +50,14 @@ class ListTasksContainer extends Component {
   };
 
   render() {
-    const { listTasks } = this.props;
+    const { listTasks, loading } = this.props;
 
-    return listTasks.length > 0 && <ListTasks listTasks={listTasks} />;
+    return (
+      <>
+        {listTasks.length > 0 && <ListTasks listTasks={listTasks} />}
+        {loading && <Spinner />}
+      </>
+    );
   }
 }
 
@@ -60,6 +67,7 @@ class ListTasksContainer extends Component {
 const mapStateToProps = state => ({
   listTasks: selectors.getTasks(state),
   tokenIsEnd: selectorsLogin.getTokenIsEnd(state),
+  loading: selectors.getIsLoading(state),
   errorNow: selectors.getError(state),
 });
 
