@@ -2,10 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
+import T from 'prop-types';
 /* import - CSS */
 import 'react-toastify/dist/ReactToastify.css';
-/* import - THUNK */
-import thunk from '../../../redux/tasks/tasksOperations';
 /* import - selectors */
 import selectors from '../../../redux/tasks/tasksSelectors';
 import selectorsLogin from '../../../redux/login/loginSelectors';
@@ -16,11 +15,16 @@ import ListTasks from './ListTasks';
  * COMPONENT
  */
 class ListTasksContainer extends Component {
-  componentDidMount() {
-    const { getTasksThunk } = this.props;
+  static defaultProps = {
+    tokenIsEnd: null,
+    errorNow: null,
+  };
 
-    // getTasksThunk();
-  }
+  static propTypes = {
+    listTasks: T.arrayOf(T.shape).isRequired,
+    tokenIsEnd: T.shape(),
+    errorNow: T.shape(),
+  };
 
   componentDidUpdate(prevProps) {
     const { tokenIsEnd, errorNow } = this.props;
@@ -58,9 +62,5 @@ const mapStateToProps = state => ({
   tokenIsEnd: selectorsLogin.getTokenIsEnd(state),
   errorNow: selectors.getError(state),
 });
-
-// const mapDispatchToProps = dispatch => ({
-//   getTasksThunk: () => dispatch(thunk.getTasksThunk()),
-// });
 
 export default connect(mapStateToProps, null)(ListTasksContainer);

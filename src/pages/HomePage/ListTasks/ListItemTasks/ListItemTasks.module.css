@@ -1,0 +1,16 @@
+.item {
+  width: 70%;
+  background: rgb(234, 237, 255);
+  box-shadow: 0 5px 15px 0 rgba(110, 110, 110, 0.1);
+  border-radius: 6px;
+  padding: 20px 30px;
+  margin: 0 auto;
+  display: flex;
+}
+.item:not(:last-child) {
+  margin-bottom: 30px;
+}
+.photo {
+  width: 150px;
+  margin: 0 20px 0 0;
+}

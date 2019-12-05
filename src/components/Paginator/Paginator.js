@@ -16,24 +16,18 @@ import thunk from '../../redux/tasks/tasksOperations';
  * COMPONENT
  */
 class Paginator extends Component {
-  state = {
-    nowPageState: 0,
+  static defaultProps = {
+    totalCountTasks: null,
   };
 
-  componentDidMount() {
-    // const { location } = this.props;
-    // let nowPageState = new URLSearchParams(location.search).get('page');
-    // if (!nowPageState) {
-    //   nowPageState = 0;
-    // } else {
-    //   nowPageState = Number(nowPageState) - 1;
-    // }
-    // this.setState({ nowPageState });
-  }
+  static propTypes = {
+    location: T.shape().isRequired,
+    history: T.shape().isRequired,
+    totalCountTasks: T.string,
+    getTasks: T.func.isRequired,
+  };
 
   handlePageClick = data => {
-    console.log('handlePageClick', data.selected);
-
     const { getTasks, history, location } = this.props;
     const clickPage = data.selected + 1;
 
@@ -65,10 +59,7 @@ class Paginator extends Component {
   };
 
   render() {
-    console.log('Paginator');
-
     const { totalCountTasks, location } = this.props;
-    const { nowPageState } = this.state;
     const pageCount = Math.ceil(Number(totalCountTasks) / 3);
 
     let nowPage = new URLSearchParams(location.search).get('page');
@@ -79,7 +70,6 @@ class Paginator extends Component {
     }
 
     return (
-      // totalCountTasks && (
       <div className={styles.contPag}>
         <ReactPaginate
           previousLabel="previous"
@@ -90,14 +80,12 @@ class Paginator extends Component {
           marginPagesDisplayed={2} // Количество страниц для отображения полей.
           pageRangeDisplayed={5} // диапазон отображаймых страниц
           initialPage={nowPage} // Начальная страница
-          // initialPage={nowPageState} // Начальная страница
           onPageChange={this.handlePageClick}
           containerClassName={styles.pagination}
           subContainerClassName="pages pagination"
           activeClassName={styles.linkActive}
         />
       </div>
-      // )
     );
   }
 }
@@ -118,19 +106,3 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withRouter,
 )(Paginator);
-
-//
-//
-//
-
-// /* Если номер страницы, поле поиска и как фильтровать */
-// if (sortField && sortDirection) {
-//   getTasks(null, sortField, sortDirection);
-
-//   history.push({
-//     ...location,
-//     search: `sort_field=${sortField}&sort_direction=${sortDirection}`,
-//   });
-
-//   return;
-// }

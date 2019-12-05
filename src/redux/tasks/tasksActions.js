@@ -77,16 +77,6 @@ export const changeTaskFailureAC = error => ({
 export const addTaskStartAC = () => ({
   type: types.ADD_TASK_START,
 });
-
-// export const addTaskSeccassAC = (id, text, status) => ({
-//   type: types.CHANGE_TASK_SUCCESS,
-
-//   payload: {
-//     id,
-//     text,
-//     status,
-//   },
-// });
 export const addTaskSeccassAC = newTask => ({
   type: types.ADD_TASK_SECCASS,
 
@@ -102,14 +92,6 @@ export const addTaskFailureAC = error => ({
     error,
   },
 });
-
-// export const tokenIsEndAC = messsage => ({
-//   type: types.TOKEN_IS_END,
-
-//   payload: {
-//     messsage,
-//   },
-// });
 
 export const idItemChangeTextAC = id => ({
   type: types.ID_ITEM_CHANGE_TEXT,

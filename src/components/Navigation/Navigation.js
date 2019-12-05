@@ -2,18 +2,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import T from 'prop-types';
 /* import - CSS */
 import styles from './Navigation.module.css';
 /* import - routes */
 import routes from '../../routes';
 /* import - selectors */
 import selectorsLogin from '../../redux/login/loginSelectors';
+/* import - AC */
 import * as AC from '../../redux/login/loginActions';
-// import thunk from '../../redux/tasks/tasksOperations';
 
 const Navigation = ({ token, deleteToken }) => (
   <nav className={styles.navigation}>
-    {console.log('Navigation')}
     <ul className={styles.list}>
       <li className={styles.item}>
         <NavLink
@@ -53,7 +53,18 @@ const Navigation = ({ token, deleteToken }) => (
   </nav>
 );
 
-// export default Navigation;
+Navigation.defaultProps = {
+  token: null,
+};
+
+Navigation.propTypes = {
+  token: T.string,
+  deleteToken: T.func.isRequired,
+};
+
+/*
+ * CONNECT
+ */
 const mapStateToProps = state => ({
   token: selectorsLogin.getToken(state),
 });

@@ -32,6 +32,20 @@ const validationSchema = yup.object({
  * COMPONENT
  */
 class LoginPage extends Component {
+  static defaultProps = {
+    token: null,
+    nowError: null,
+    loginingMistakeInInput: null,
+  };
+
+  static propTypes = {
+    loading: T.bool.isRequired,
+    token: T.string,
+    nowError: T.shape(),
+    loginingMistakeInInput: T.shape(),
+    loginingThunk: T.func.isRequired,
+  };
+
   inputIds = {
     loginInputId: shortid.generate(),
     passwordInputId: shortid.generate(),
@@ -47,7 +61,7 @@ class LoginPage extends Component {
       this.makedMistake(loginingMistakeInInput.message);
     }
 
-    if (nowError && prevProps.happenedError !== nowError) this.errorShow();
+    if (nowError && prevProps.nowError !== nowError) this.errorShow();
   }
 
   makedMistake = loginingMistakeInInput => {
@@ -64,20 +78,16 @@ class LoginPage extends Component {
 
   render() {
     const { token, loginingThunk, loading } = this.props;
-    // const { login, password } = this.state;
     const { loginInputId, passwordInputId } = this.inputIds;
-
-    console.log('Login');
 
     return (
       <section className={styles.section}>
-        {token && <h2 className={token && styles.titleInside}>'Вошли=)'</h2>}
+        {token && <h2 className={token && styles.titleInside}>Вошли</h2>}
 
         {!token && (
           <Formik
             initialValues={{ login: '', password: '' }}
             onSubmit={(data, { resetForm }) => {
-              console.log(data);
               const { login, password } = data;
 
               loginingThunk(login, password);
@@ -86,7 +96,7 @@ class LoginPage extends Component {
             }}
             validationSchema={validationSchema}
           >
-            {({ values, errors, touched }) => (
+            {({ errors, touched }) => (
               <Form className={styles.form}>
                 <label htmlFor={loginInputId}>
                   <span>Login:</span>
@@ -143,8 +153,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
-
-{
-  /* <pre>{JSON.stringify(values, null, 2)}</pre>
-   <pre>{JSON.stringify(errors, null, 2)}</pre> */
-}

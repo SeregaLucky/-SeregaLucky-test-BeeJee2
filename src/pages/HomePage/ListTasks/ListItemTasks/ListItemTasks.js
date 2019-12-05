@@ -1,7 +1,10 @@
+/* eslint-disable */
 /* import - node_module */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import T from 'prop-types';
 /* import - CSS */
+import styles from './ListItemTasks.module.css';
 /* import - selectors */
 import selectors from '../../../../redux/tasks/tasksSelectors';
 import selectorsLogin from '../../../../redux/login/loginSelectors';
@@ -12,6 +15,24 @@ import thunk from '../../../../redux/tasks/tasksOperations';
  * COMPONENT
  */
 class ListItemTasks extends Component {
+  static defaultProps = {
+    token: null,
+    image_path: null,
+  };
+
+  static propTypes = {
+    token: T.string,
+    id: T.number.isRequired,
+    text: T.string.isRequired,
+    status: T.number.isRequired,
+    image_path: T.string,
+    username: T.string.isRequired,
+    email: T.string.isRequired,
+    loading: T.bool.isRequired,
+    IdsItemsChangeText: T.arrayOf(T.number).isRequired,
+    changeTaskThunk: T.func.isRequired,
+  };
+
   state = {
     idNowEdit: null,
     textNow: '',
@@ -45,18 +66,13 @@ class ListItemTasks extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { text, status, token, changeTaskThunk } = this.props;
+    const { token, changeTaskThunk } = this.props;
     const { idNowEdit, textNow, statusNow } = this.state;
 
     changeTaskThunk(idNowEdit, textNow, statusNow, token);
-
-    if (textNow !== text || statusNow !== status) {
-    }
   };
 
   render() {
-    console.log('ListItemTasks');
-
     const {
       id,
       image_path,
@@ -69,18 +85,16 @@ class ListItemTasks extends Component {
       IdsItemsChangeText,
     } = this.props;
     const { idNowEdit, textNow, statusNow } = this.state;
-    // console.log(image_path, username, email, text, status);
 
     const isChangeTextItem = IdsItemsChangeText.some(itemId => itemId === id);
-    console.log(isChangeTextItem);
 
     return (
-      <li className={'styles.item'}>
-        <div className={'styles.photo'}>
-          {/* <img src={image_path} alt="avatar" /> */}
+      <li className={styles.item}>
+        <div className={styles.photo}>
+          <img src={image_path} alt="avatar" />
         </div>
 
-        <div className={'styles.rigthContent'}>
+        <div>
           <p>
             <b>Имя:</b> {username}
           </p>
@@ -93,14 +107,14 @@ class ListItemTasks extends Component {
           <p>
             <b>Статус задачи:</b> {status === 10 ? 'Выполнен' : 'В процессе'}
           </p>
-          {isChangeTextItem && <p>Отредактированная</p>}
+          {isChangeTextItem && (
+            <p>
+              <b>Отредактированная пдминистратором</b>
+            </p>
+          )}
 
           {token && (
-            <button
-              type="button"
-              // onClick={() => this.handleClick(id, text, status)}
-              onClick={this.handleClick}
-            >
+            <button type="button" onClick={this.handleClick}>
               {idNowEdit ? 'Отмена' : 'Редактировать'}
             </button>
           )}
@@ -111,7 +125,6 @@ class ListItemTasks extends Component {
               <input
                 type="text"
                 name="textNow"
-                // value={text}
                 value={textNow}
                 onChange={this.handleChange}
               />
@@ -119,7 +132,6 @@ class ListItemTasks extends Component {
               <input
                 type="checkbox"
                 name="statusNow"
-                // checked={status}
                 checked={statusNow}
                 onChange={this.handleChange}
               />
@@ -130,7 +142,6 @@ class ListItemTasks extends Component {
             </form>
           )}
         </div>
-        <hr />
       </li>
     );
   }

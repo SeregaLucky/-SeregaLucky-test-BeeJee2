@@ -20,7 +20,6 @@ const getTasksThunk = (page, sortField, sortDirection) => dispatch => {
 };
 
 /* CHANGE */
-/* token раньше прокидывал */
 const changeTaskThunk = (id, text, status) => (dispatch, getState) => {
   dispatch(AC.changeTaskStartAC());
 
@@ -40,7 +39,6 @@ const changeTaskThunk = (id, text, status) => (dispatch, getState) => {
   tasksAPI
     .changeTask(id, text, makeNumberStatus, token)
     .then(res => {
-      console.log(res);
       if (res.status === 'ok') {
         dispatch(AC.changeTaskSeccassAC(id, text, status));
 
@@ -53,9 +51,7 @@ const changeTaskThunk = (id, text, status) => (dispatch, getState) => {
 
       /* Если срок токена закончен */
       if (res.status === 'error') {
-        // dispatch(AC.makedMistakeAC(res.message.token));
-        // dispatch(AC.changeTaskFailureAC(res.message.token)); // ?
-        dispatch(ACLogin.tokenIsEndAC(res.message.token)); // ?
+        dispatch(ACLogin.tokenIsEndAC(res.message.token));
       }
     })
     .catch(err => dispatch(AC.changeTaskFailureAC(err)));
@@ -71,13 +67,10 @@ const addTaskThunk = (username, email, text) => dispatch => {
       // console.log(res);
       /* Если все поля указаны и они волидные */
       if (res.status === 'ok') {
-        // console.log('ok');
-        // console.log(res.message);
         dispatch(AC.addTaskSeccassAC(res.message));
       }
-      /* Если какое то или какие то поля не заполнены или не валидны. Хотя и так проверка на клиенте происходин=) */
+
       if (res.status === 'error') {
-        // НАПИСАТЬ ТУТ КОД
         dispatch(AC.addTaskFailureAC(res.message)); // ?
       }
     })

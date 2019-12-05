@@ -93,7 +93,6 @@ const itemsCountReducer = (state = null, { type, payload }) => {
 const idsItemsChangeTextThunk = (state = [], { type, payload }) => {
   switch (type) {
     case types.ID_ITEM_CHANGE_TEXT:
-      // return payload.id;
       return [payload.id, ...state];
 
     default:
@@ -110,37 +109,4 @@ export default combineReducers({
   error: errorReducer,
 
   idsItemsChangeText: idsItemsChangeTextThunk,
-
-  // itemsCount: itemsCountReducer,
-  // loadingCount: loadingCountReducer, // Нужно ли????
-  // errorCount: errorCountReducer, // Нужно ли????
 });
-
-// const loadingCountReducer = (state = false, { type }) => {
-//   // нужно ли?????????
-//   switch (type) {
-//     case types.GET_COUNT_TASKS_START:
-//       return true;
-
-//     case types.GET_COUNT_TASKS_SECCASS:
-//     case types.GET_COUNT_TASKS_FAILURE:
-//       return false;
-
-//     default:
-//       return state;
-//   }
-// };
-
-// const errorCountReducer = (state = null, { type, payload }) => {
-//   // нужно ли?????????
-//   switch (type) {
-//     case types.GET_COUNT_TASKS_START:
-//       return null;
-
-//     case types.GET_COUNT_TASKS_FAILURE:
-//       return payload.error;
-
-//     default:
-//       return state;
-//   }
-// };

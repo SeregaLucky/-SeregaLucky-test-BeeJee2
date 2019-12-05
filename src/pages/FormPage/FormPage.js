@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
 import { connect } from 'react-redux';
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 import T from 'prop-types';
 import { toast } from 'react-toastify';
@@ -40,6 +40,18 @@ const validationSchema = yup.object({
  * COMPONENT
  */
 class FormPage extends Component {
+  static defaultProps = {
+    newTask: null,
+    formError: null,
+  };
+
+  static propTypes = {
+    newTask: T.shape(),
+    loading: T.bool.isRequired,
+    formError: T.shape(),
+    addTaskThunk: T.func.isRequired,
+  };
+
   inputIds = {
     usernameInputId: shortid.generate(),
     emailInputId: shortid.generate(),
@@ -67,19 +79,14 @@ class FormPage extends Component {
   };
 
   render() {
-    console.log('Form');
-    const { newTask, loading, happenedError, addTaskThunk } = this.props;
+    const { loading, addTaskThunk } = this.props;
     const { usernameInputId, emailInputId, textInputId } = this.inputIds;
 
     return (
       <Formik
         initialValues={{ username: '', email: '', text: '' }}
-        onSubmit={(data, { setSubmitting, resetForm }) => {
-          console.log(data);
+        onSubmit={(data, { resetForm }) => {
           const { username, email, text } = data;
-          // setSubmitting(true);
-          // setSubmitting(false);
-          // setSubmitting(loading);
           addTaskThunk(username, email, text);
           resetForm();
         }}
@@ -92,7 +99,6 @@ class FormPage extends Component {
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
             <label htmlFor={usernameInputId} className={styles.label}>
@@ -144,12 +150,7 @@ class FormPage extends Component {
               )}
             </label>
 
-            <button
-              type="submit"
-              // disabled={isSubmitting}
-              disabled={loading}
-              className={styles.button}
-            >
+            <button type="submit" disabled={loading} className={styles.button}>
               Add task
             </button>
           </form>
@@ -158,15 +159,12 @@ class FormPage extends Component {
     );
   }
 }
-// export default FormPage;
 
 /*
  * CONNECT
  */
 const mapStateToProps = state => ({
-  newTask: selectors.getNewTask(state),
   loading: selectors.getIsLoading(state),
-  formError: selectors.getError(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -175,9 +173,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormPage);
-
-{
-  /* <pre>{JSON.stringify(values, null, 2)}</pre>
-            <pre>{JSON.stringify(errors, null, 2)}</pre>
-            <pre>{JSON.stringify(touched, null, 2)}</pre> */
-}

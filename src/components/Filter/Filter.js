@@ -32,27 +32,26 @@ const OPTIONS = [
   },
 ];
 
+/*
+ * COMPONENT
+ */
 class Filter extends Component {
-  // static propTypes = {
-  //   location: T.shape().isRequired,
-  //   history: T.shape().isRequired,
-  //   getTasksThunk: T.func.isRequired,
-  // };
+  static propTypes = {
+    location: T.shape().isRequired,
+    history: T.shape().isRequired,
+    getTasksThunk: T.func.isRequired,
+  };
 
   state = {
     fieldSort: '',
   };
 
   componentDidMount() {
-    const { location, getTasksThunk } = this.props;
+    const { location } = this.props;
 
     /* Находим параметры запроса */
-    const { page } = this.findParams(location.search);
     const { sortField } = this.findParams(location.search);
     const { sortDirection } = this.findParams(location.search);
-    // console.log('filter PAGE ', page);
-    // console.log('filter sortField ', sortField);
-    // console.log('filter sortDirection ', sortDirection);
 
     if (sortField && sortDirection) {
       const fieldSort = `&sort_field=${sortField}&sort_direction=${sortDirection}`;
@@ -66,7 +65,6 @@ class Filter extends Component {
     const { fieldSort } = this.state;
 
     /* Находим старые параметры запроса */
-    const pagePrev = this.findParams(prevState.fieldSort).page;
     const sortFieldPrev = this.findParams(prevState.fieldSort).sortField;
     const sortDirectionPrev = this.findParams(prevState.fieldSort)
       .sortDirection;
@@ -76,11 +74,9 @@ class Filter extends Component {
     const { sortField } = this.findParams(fieldSort);
     const { sortDirection } = this.findParams(fieldSort);
 
-    // console.log('componentDidUpdate PAGE', page);
-
-    if (sortFieldPrev === sortField && sortDirectionPrev === sortDirection)
+    if (sortFieldPrev === sortField && sortDirectionPrev === sortDirection) {
       return;
-    // console.log(555);
+    }
 
     if (!page) {
       getTasksThunk(null, sortField, sortDirection);
@@ -118,7 +114,6 @@ class Filter extends Component {
   };
 
   render() {
-    console.log('Filter');
     const { fieldSort } = this.state;
 
     return (
@@ -139,44 +134,12 @@ class Filter extends Component {
   }
 }
 
-// export default Filter;
-
+/*
+ * CONNECT
+ */
 const mapDispatchToProps = dispatch => ({
   getTasksThunk: (clickPage, sortField, sortDirection) =>
     dispatch(thunk.getTasksThunk(clickPage, sortField, sortDirection)),
 });
 
-// export default compose(connect(null, mapDispatchToProps))(Filter);
 export default compose(connect(null, mapDispatchToProps), withRouter)(Filter);
-
-// {/* ID */}
-// <option value="&sort_field=id&sort_direction=asc">
-//   ID по убыванию
-// </option>
-// <option value="&sort_field=id&sort_direction=desc">
-//   ID по возростанию
-// </option>
-
-// {/* NAME */}
-// <option value="&sort_field=name&sort_direction=asc">
-//   Имена по убыванию
-// </option>
-// <option value="&sort_field=name&sort_direction=desc">
-//   Имена по возростанию
-// </option>
-
-// {/* E-MAIL */}
-// <option value="&sort_field=email&sort_direction=asc">
-//   E-mail по убыванию
-// </option>
-// <option value="&sort_field=email&sort_direction=desc">
-//   E-mail по возростанию
-// </option>
-
-// {/* STATUS */}
-// <option value="&sort_field=status&sort_direction=asc">
-//   Статусы в процессе
-// </option>
-// <option value="&sort_field=status&sort_direction=desc">
-//   Статусы выполненые
-// </option>
