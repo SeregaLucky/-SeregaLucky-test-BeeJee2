@@ -1,6 +1,9 @@
 .navigation {
   background: linear-gradient(90deg, #325262, #19272f);
   padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .list {
   display: flex;
@@ -19,4 +22,20 @@
 .link.linkActive {
   color: #000;
   background: #fdd700;
+}
+.buttonOut {
+  background: #ee5586;
+  font-size: 14px;
+  margin: 0;
+  padding: 14px 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(203, 203, 255, 0.23);
+  border: none;
+  color: #fff;
+  border-radius: 23px;
+}
+.buttonOut:focus,
+.buttonOut:hover {
+  transition: 0.2s;
+  box-shadow: 0 5px 10px 0 rgba(255, 255, 255, 0.3);
 }

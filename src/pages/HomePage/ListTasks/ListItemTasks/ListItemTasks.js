@@ -95,27 +95,46 @@ class ListItemTasks extends Component {
         </div>
 
         <div>
-          <p>
-            <b>Имя:</b> {username}
-          </p>
-          <p>
-            <b>E-mail:</b> {email}
-          </p>
-          <p>
-            <b>Задача:</b> {text}
-          </p>
-          <p>
-            <b>Статус задачи:</b> {status === 10 ? 'Выполнен' : 'В процессе'}
-          </p>
-          {isChangeTextItem && (
-            <p>
-              <b>Отредактированная администратором</b>
-            </p>
-          )}
+          <ul className={styles.listInfo}>
+            <li>
+              <p>
+                <b>Имя:</b> {username}
+              </p>
+            </li>
+            <li>
+              <p>
+                <b>E-mail:</b> {email}
+              </p>
+            </li>
+            <li>
+              <p>
+                <b>Задача:</b> {text}
+              </p>
+            </li>
+            <li>
+              <p>
+                <b>Статус задачи:</b>{' '}
+                {status === 10 ? 'Выполнен' : 'В процессе'}
+              </p>
+            </li>
+            <li>
+              {isChangeTextItem && (
+                <p>
+                  <b>Отредактированная администратором</b>
+                </p>
+              )}
+            </li>
+          </ul>
 
           {token && (
-            <button type="button" onClick={this.handleClick}>
-              {idNowEdit ? 'Отмена' : 'Редактировать'}
+            <button
+              className={
+                idNowEdit ? styles.buttonEditTrue : styles.buttonEditFalse
+              }
+              type="button"
+              onClick={this.handleClick}
+            >
+              {idNowEdit ? 'Выйти с Редактирования' : 'Редактировать'}
             </button>
           )}
 
@@ -136,7 +155,11 @@ class ListItemTasks extends Component {
                 onChange={this.handleChange}
               />
 
-              <button type="submit" disabled={loading}>
+              <button
+                className={styles.buttonSend}
+                type="submit"
+                disabled={loading}
+              >
                 Отправить
               </button>
             </form>

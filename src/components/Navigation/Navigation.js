@@ -46,7 +46,7 @@ const Navigation = ({ token, deleteToken }) => (
     </ul>
 
     {token && (
-      <button type="button" onClick={deleteToken}>
+      <button className={styles.buttonOut} type="button" onClick={deleteToken}>
         Выйти
       </button>
     )}

@@ -14,3 +14,39 @@
   width: 150px;
   margin: 0 20px 0 0;
 }
+.listInfo {
+  margin: 0 0 10px 0;
+}
+.buttonEdit {
+  padding: 6px 12px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  margin: 0 0 10px 0;
+}
+.buttonEdit:focus,
+.buttonEdit:hover {
+  transition: 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(62, 62, 79, 0.23);
+}
+.buttonEditTrue {
+  composes: buttonEdit;
+  background: #ee5586;
+}
+.buttonEditFalse {
+  composes: buttonEdit;
+  background: #a0ce4e;
+}
+
+.buttonSend {
+  padding: 6px 12px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  background: #68cef5;
+}
+.buttonSend:focus,
+.buttonSend:hover {
+  transition: 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(62, 62, 79, 0.23);
+}
