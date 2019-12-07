@@ -31,14 +31,17 @@ class ListTasksContainer extends Component {
   componentDidUpdate(prevProps) {
     const { tokenIsEnd, errorNow } = this.props;
 
-    if (tokenIsEnd && prevProps.tokenIsEnd !== tokenIsEnd)
+    if (tokenIsEnd && prevProps.tokenIsEnd !== tokenIsEnd) {
       this.tokenIsEnd(tokenIsEnd);
+    }
 
-    if (errorNow && prevProps.errorNow !== errorNow) this.errorShow();
+    if (errorNow && prevProps.errorNow !== errorNow) {
+      this.errorShow();
+    }
   }
 
   tokenIsEnd = tokenIsEnd => {
-    toast.warn(`${tokenIsEnd}`, {
+    toast.warn(`${tokenIsEnd}. Или токен отсутствует. Перезайдите заново!`, {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };

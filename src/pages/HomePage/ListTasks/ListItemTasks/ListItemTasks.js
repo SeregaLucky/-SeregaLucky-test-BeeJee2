@@ -120,7 +120,7 @@ class ListItemTasks extends Component {
             <li>
               {isChangeTextItem && (
                 <p>
-                  <b>Отредактированная администратором</b>
+                  <b>Отредактировано администратором</b>
                 </p>
               )}
             </li>

@@ -39,3 +39,7 @@
   transition: 0.2s;
   box-shadow: 0 5px 10px 0 rgba(255, 255, 255, 0.3);
 }
+
+@media screen and (min-width: 940px) {
+  /* !!!!!!----!!!!!! */
+}

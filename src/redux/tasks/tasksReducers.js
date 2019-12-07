@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import * as types from './tasksTypes';
+import * as loginTypes from '../login/loginTypes';
 
 /*
  * GET_TASKS   &&   CHANGE_TASK
@@ -50,6 +51,7 @@ const loadingReducer = (state = false, { type }) => {
     case types.CHANGE_TASK_FAILURE:
     case types.ADD_TASK_SECCASS:
     case types.ADD_TASK_FAILURE:
+    case loginTypes.TOKEN_IS_END:
       return false;
 
     default:
@@ -90,7 +92,7 @@ const itemsCountReducer = (state = null, { type, payload }) => {
   }
 };
 
-const idsItemsChangeTextThunk = (state = [], { type, payload }) => {
+const idsItemsChangeTextReducer = (state = [], { type, payload }) => {
   switch (type) {
     case types.ID_ITEM_CHANGE_TEXT:
       return [payload.id, ...state];
@@ -108,5 +110,5 @@ export default combineReducers({
   loading: loadingReducer,
   error: errorReducer,
 
-  idsItemsChangeText: idsItemsChangeTextThunk,
+  idsItemsChangeText: idsItemsChangeTextReducer,
 });
