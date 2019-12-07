@@ -137,9 +137,8 @@ class Filter extends Component {
 /*
  * CONNECT
  */
-const mapDispatchToProps = dispatch => ({
-  getTasksThunk: (clickPage, sortField, sortDirection) =>
-    dispatch(thunk.getTasksThunk(clickPage, sortField, sortDirection)),
-});
+const mapDispatchToProps = {
+  getTasksThunk: thunk.getTasksThunk,
+};
 
 export default compose(connect(null, mapDispatchToProps), withRouter)(Filter);

@@ -168,9 +168,8 @@ const mapStateToProps = state => ({
   loading: selectors.getIsLoading(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  addTaskThunk: (username, email, text) =>
-    dispatch(thunk.addTaskThunk(username, email, text)),
-});
+const mapDispatchToProps = {
+  addTaskThunk: thunk.addTaskThunk,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormPage);

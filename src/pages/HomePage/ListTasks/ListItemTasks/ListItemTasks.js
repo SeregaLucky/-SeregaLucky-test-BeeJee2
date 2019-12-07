@@ -164,9 +164,8 @@ const mapStateToProps = (state, { id }) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  changeTaskThunk: (id, text, status, token) =>
-    dispatch(thunk.changeTaskThunk(id, text, status, token)),
-});
+const mapDispatchToProps = {
+  changeTaskThunk: thunk.changeTaskThunk,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListItemTasks);

@@ -59,7 +59,7 @@ export const changeTaskSeccassAC = (id, text, status) => ({
   payload: {
     id,
     text,
-    status,
+    status: status ? 10 : 0,
   },
 });
 

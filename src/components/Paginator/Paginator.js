@@ -97,10 +97,9 @@ const mapStateToProps = state => ({
   totalCountTasks: selectors.getTotalCountTasks(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  getTasks: (clickPage, sortField, sortDirection) =>
-    dispatch(thunk.getTasksThunk(clickPage, sortField, sortDirection)),
-});
+const mapDispatchToProps = {
+  getTasks: thunk.getTasksThunk,
+};
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),

@@ -69,8 +69,8 @@ const mapStateToProps = state => ({
   token: selectorsLogin.getToken(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  deleteToken: () => dispatch(AC.deleteTokenAC()),
-});
+const mapDispatchToProps = {
+  deleteToken: AC.deleteTokenAC,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

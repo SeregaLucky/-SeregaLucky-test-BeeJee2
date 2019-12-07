@@ -140,6 +140,9 @@ class LoginPage extends Component {
   }
 }
 
+/*
+ * CONNECT
+ */
 const mapStateToProps = state => ({
   token: loginSelectors.getToken(state),
   loginingMistakeInInput: loginSelectors.getLoginingMistakeInInput(state),
@@ -147,9 +150,8 @@ const mapStateToProps = state => ({
   nowError: loginSelectors.getError(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  loginingThunk: (username, password) =>
-    dispatch(thunk.loginingThunk(username, password)),
-});
+const mapDispatchToProps = {
+  loginingThunk: thunk.loginingThunk,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
