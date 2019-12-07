@@ -12,6 +12,9 @@ import selectorsLogin from '../../redux/login/loginSelectors';
 /* import - AC */
 import * as AC from '../../redux/login/loginActions';
 
+/*
+ * COMPONET
+ */
 const Navigation = ({ token, deleteToken }) => (
   <nav className={styles.navigation}>
     <ul className={styles.list}>
@@ -34,15 +37,17 @@ const Navigation = ({ token, deleteToken }) => (
           Добавить новую задачу
         </NavLink>
       </li>
-      <li className={styles.item}>
-        <NavLink
-          to={routes.LOGIN_PAGE}
-          className={styles.link}
-          activeClassName={styles.linkActive}
-        >
-          Войти
-        </NavLink>
-      </li>
+      {!token && (
+        <li className={styles.item}>
+          <NavLink
+            to={routes.LOGIN_PAGE}
+            className={styles.link}
+            activeClassName={styles.linkActive}
+          >
+            Войти
+          </NavLink>
+        </li>
+      )}
     </ul>
 
     {token && (

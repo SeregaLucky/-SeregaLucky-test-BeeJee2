@@ -1,5 +1,6 @@
 /* import - node_modules */
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
 import { toast } from 'react-toastify';
@@ -13,6 +14,7 @@ import styles from './LoginPage.module.css';
 import loginSelectors from '../../redux/login/loginSelectors';
 /* import - THUNK */
 import thunk from '../../redux/login/loginOperations';
+import withAuthRedirect from '../../hoc/withAuthRedirect';
 
 toast.configure();
 
@@ -33,14 +35,12 @@ const validationSchema = yup.object({
  */
 class LoginPage extends Component {
   static defaultProps = {
-    token: null,
     nowError: null,
     loginingMistakeInInput: null,
   };
 
   static propTypes = {
     loading: T.bool.isRequired,
-    token: T.string,
     nowError: T.shape(),
     loginingMistakeInInput: T.shape(),
     loginingThunk: T.func.isRequired,
@@ -77,64 +77,60 @@ class LoginPage extends Component {
   };
 
   render() {
-    const { token, loginingThunk, loading } = this.props;
+    const { loginingThunk, loading } = this.props;
     const { loginInputId, passwordInputId } = this.inputIds;
 
     return (
       <section className={styles.section}>
-        {token && <h2 className={token && styles.titleInside}>Вошли</h2>}
+        <Formik
+          initialValues={{ login: '', password: '' }}
+          onSubmit={(data, { resetForm }) => {
+            const { login, password } = data;
 
-        {!token && (
-          <Formik
-            initialValues={{ login: '', password: '' }}
-            onSubmit={(data, { resetForm }) => {
-              const { login, password } = data;
+            loginingThunk(login, password);
 
-              loginingThunk(login, password);
+            resetForm();
+          }}
+          validationSchema={validationSchema}
+        >
+          {({ errors, touched }) => (
+            <Form className={styles.form}>
+              <label htmlFor={loginInputId}>
+                <span>Login:</span>
+                <Field
+                  type="text"
+                  placeholder="Login..."
+                  name="login"
+                  id={loginInputId}
+                />
+                {errors.login && touched.login && (
+                  <span className={styles.error}>{errors.login}</span>
+                )}
+              </label>
 
-              resetForm();
-            }}
-            validationSchema={validationSchema}
-          >
-            {({ errors, touched }) => (
-              <Form className={styles.form}>
-                <label htmlFor={loginInputId}>
-                  <span>Login:</span>
-                  <Field
-                    type="text"
-                    placeholder="Login..."
-                    name="login"
-                    id={loginInputId}
-                  />
-                  {errors.login && touched.login && (
-                    <span className={styles.error}>{errors.login}</span>
-                  )}
-                </label>
+              <label htmlFor={passwordInputId}>
+                <span>Password</span>
+                <Field
+                  type="password"
+                  placeholder="Password..."
+                  name="password"
+                  id={passwordInputId}
+                />
+                {errors.password && touched.password && (
+                  <span className={styles.error}>{errors.password}</span>
+                )}
+              </label>
 
-                <label htmlFor={passwordInputId}>
-                  <span>Password</span>
-                  <Field
-                    type="password"
-                    placeholder="Password..."
-                    name="password"
-                    id={passwordInputId}
-                  />
-                  {errors.password && touched.password && (
-                    <span className={styles.error}>{errors.password}</span>
-                  )}
-                </label>
-
-                <button
-                  type="submit"
-                  className={styles.button}
-                  disabled={loading}
-                >
-                  Log in
-                </button>
-              </Form>
-            )}
-          </Formik>
-        )}
+              <button
+                type="submit"
+                className={styles.button}
+                disabled={loading}
+              >
+                Log in
+              </button>
+            </Form>
+          )}
+        </Formik>
       </section>
     );
   }
@@ -144,7 +140,6 @@ class LoginPage extends Component {
  * CONNECT
  */
 const mapStateToProps = state => ({
-  token: loginSelectors.getToken(state),
   loginingMistakeInInput: loginSelectors.getLoginingMistakeInInput(state),
   loading: loginSelectors.getLoading(state),
   nowError: loginSelectors.getError(state),
@@ -154,4 +149,7 @@ const mapDispatchToProps = {
   loginingThunk: thunk.loginingThunk,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect,
+)(LoginPage);
