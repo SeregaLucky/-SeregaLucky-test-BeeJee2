@@ -8,9 +8,9 @@ import T from 'prop-types';
 /* import - CSS */
 import styles from './Paginator.module.css';
 /* import - selectors */
-import selectors from '../../redux/tasks/tasksSelectors';
+import selectorsTasks from '../../redux/tasks/tasksSelectors';
 /* import - thunk */
-import thunk from '../../redux/tasks/tasksOperations';
+import thunkTasks from '../../redux/tasks/tasksOperations';
 
 /*
  * COMPONENT
@@ -94,11 +94,11 @@ class Paginator extends Component {
  * CONNECT
  */
 const mapStateToProps = state => ({
-  totalCountTasks: selectors.getTotalCountTasks(state),
+  totalCountTasks: selectorsTasks.getTotalCountTasks(state),
 });
 
 const mapDispatchToProps = {
-  getTasks: thunk.getTasksThunk,
+  getTasks: thunkTasks.getTasksThunk,
 };
 
 export default compose(

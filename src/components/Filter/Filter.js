@@ -7,7 +7,7 @@ import T from 'prop-types';
 /* import - CSS */
 import styles from './Filter.module.css';
 /* import - thunk */
-import thunk from '../../redux/tasks/tasksOperations';
+import thunkTasks from '../../redux/tasks/tasksOperations';
 
 const OPTIONS = [
   { text: 'ID по убыванию', value: '&sort_field=id&sort_direction=asc' },
@@ -138,7 +138,7 @@ class Filter extends Component {
  * CONNECT
  */
 const mapDispatchToProps = {
-  getTasksThunk: thunk.getTasksThunk,
+  getTasksThunk: thunkTasks.getTasksThunk,
 };
 
 export default compose(connect(null, mapDispatchToProps), withRouter)(Filter);

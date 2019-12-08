@@ -6,10 +6,10 @@ import T from 'prop-types';
 /* import - CSS */
 import styles from './ListItemTasks.module.css';
 /* import - selectors */
-import selectors from '../../../../redux/tasks/tasksSelectors';
+import selectorsTasks from '../../../../redux/tasks/tasksSelectors';
 import selectorsLogin from '../../../../redux/login/loginSelectors';
 /* import - THUNK */
-import thunk from '../../../../redux/tasks/tasksOperations';
+import thunkTasks from '../../../../redux/tasks/tasksOperations';
 
 /*
  * COMPONENT
@@ -205,10 +205,10 @@ class ListItemTasks extends Component {
  * CONNECT
  */
 const mapStateToProps = (state, { id }) => {
-  const item = selectors.getFindItemById(state, id);
+  const item = selectorsTasks.getFindItemById(state, id);
   const token = selectorsLogin.getToken(state);
-  const loading = selectors.getIsLoading(state);
-  const IdsItemsChangeText = selectors.getIdsItemsChangeText(state);
+  const loading = selectorsTasks.getIsLoading(state);
+  const IdsItemsChangeText = selectorsTasks.getIdsItemsChangeText(state);
 
   return {
     ...item,
@@ -219,7 +219,7 @@ const mapStateToProps = (state, { id }) => {
 };
 
 const mapDispatchToProps = {
-  changeTaskThunk: thunk.changeTaskThunk,
+  changeTaskThunk: thunkTasks.changeTaskThunk,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListItemTasks);

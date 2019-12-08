@@ -6,7 +6,7 @@ import T from 'prop-types';
 /* import - CSS */
 import 'react-toastify/dist/ReactToastify.css';
 /* import - selectors */
-import selectors from '../../../redux/tasks/tasksSelectors';
+import selectorsTasks from '../../../redux/tasks/tasksSelectors';
 import selectorsLogin from '../../../redux/login/loginSelectors';
 /* import - COMPONENT */
 import ListTasks from './ListTasks';
@@ -24,14 +24,14 @@ class ListTasksContainer extends Component {
   static propTypes = {
     listTasks: T.arrayOf(T.shape).isRequired,
     loading: T.bool.isRequired,
-    tokenIsEnd: T.shape(),
+    tokenIsEnd: T.string,
     errorNow: T.shape(),
   };
 
   componentDidUpdate(prevProps) {
     const { tokenIsEnd, errorNow } = this.props;
 
-    if (tokenIsEnd && prevProps.tokenIsEnd !== tokenIsEnd) {
+    if (prevProps.tokenIsEnd !== tokenIsEnd) {
       this.tokenIsEnd(tokenIsEnd);
     }
 
@@ -68,10 +68,10 @@ class ListTasksContainer extends Component {
  * CONNECT
  */
 const mapStateToProps = state => ({
-  listTasks: selectors.getTasks(state),
+  listTasks: selectorsTasks.getTasks(state),
   tokenIsEnd: selectorsLogin.getTokenIsEnd(state),
-  loading: selectors.getIsLoading(state),
-  errorNow: selectors.getError(state),
+  loading: selectorsTasks.getIsLoading(state),
+  errorNow: selectorsTasks.getError(state),
 });
 
 export default connect(mapStateToProps, null)(ListTasksContainer);

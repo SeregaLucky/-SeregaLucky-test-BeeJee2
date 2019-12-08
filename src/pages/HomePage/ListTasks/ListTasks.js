@@ -9,15 +9,13 @@ import ListItemTasks from './ListItemTasks/ListItemTasks';
 /*
  * COMPONENT
  */
-const ListTasks = ({ listTasks }) => {
-  return (
-    <ul className={styles.list}>
-      {listTasks.map(({ id }) => (
-        <ListItemTasks key={id} id={id} />
-      ))}
-    </ul>
-  );
-};
+const ListTasks = ({ listTasks }) => (
+  <ul className={styles.list}>
+    {listTasks.map(({ id }) => (
+      <ListItemTasks key={id} id={id} />
+    ))}
+  </ul>
+);
 
 ListTasks.propTypes = {
   listTasks: T.arrayOf(T.shape).isRequired,

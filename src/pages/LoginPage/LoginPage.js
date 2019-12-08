@@ -11,7 +11,7 @@ import T from 'prop-types';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './LoginPage.module.css';
 /* import - selectors */
-import loginSelectors from '../../redux/login/loginSelectors';
+import selectorsLogin from '../../redux/login/loginSelectors';
 /* import - THUNK */
 import thunk from '../../redux/login/loginOperations';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
@@ -140,9 +140,9 @@ class LoginPage extends Component {
  * CONNECT
  */
 const mapStateToProps = state => ({
-  loginingMistakeInInput: loginSelectors.getLoginingMistakeInInput(state),
-  loading: loginSelectors.getLoading(state),
-  nowError: loginSelectors.getError(state),
+  loginingMistakeInInput: selectorsLogin.getLoginingMistakeInInput(state),
+  loading: selectorsLogin.getLoading(state),
+  nowError: selectorsLogin.getError(state),
 });
 
 const mapDispatchToProps = {

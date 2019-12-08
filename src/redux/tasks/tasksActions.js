@@ -77,6 +77,7 @@ export const changeTaskFailureAC = error => ({
 export const addTaskStartAC = () => ({
   type: types.ADD_TASK_START,
 });
+
 export const addTaskSeccassAC = newTask => ({
   type: types.ADD_TASK_SECCASS,
 

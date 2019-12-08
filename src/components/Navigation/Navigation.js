@@ -10,7 +10,7 @@ import routes from '../../routes';
 /* import - selectors */
 import selectorsLogin from '../../redux/login/loginSelectors';
 /* import - AC */
-import * as AC from '../../redux/login/loginActions';
+import * as ACLogin from '../../redux/login/loginActions';
 
 /*
  * COMPONET
@@ -75,7 +75,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  deleteToken: AC.deleteTokenAC,
+  deleteToken: ACLogin.deleteTokenAC,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

@@ -64,14 +64,13 @@ const addTaskThunk = (username, email, text) => dispatch => {
   tasksAPI
     .addTask(username, email, text)
     .then(res => {
-      // console.log(res);
       /* Если все поля указаны и они волидные */
       if (res.status === 'ok') {
         dispatch(AC.addTaskSeccassAC(res.message));
       }
 
       if (res.status === 'error') {
-        dispatch(AC.addTaskFailureAC(res.message)); // ?
+        dispatch(AC.addTaskFailureAC(res.message));
       }
     })
     .catch(err => dispatch(AC.addTaskFailureAC(err)));

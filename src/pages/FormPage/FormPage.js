@@ -10,9 +10,9 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './FormPage.module.css';
 /* import - selectors */
-import selectors from '../../redux/tasks/tasksSelectors';
+import selectorsTasks from '../../redux/tasks/tasksSelectors';
 /* import - THUNK */
-import thunk from '../../redux/tasks/tasksOperations';
+import thunkTasks from '../../redux/tasks/tasksOperations';
 
 toast.configure();
 
@@ -164,12 +164,12 @@ class FormPage extends Component {
  * CONNECT
  */
 const mapStateToProps = state => ({
-  newTask: selectors.getNewTask(state),
-  loading: selectors.getIsLoading(state),
+  newTask: selectorsTasks.getNewTask(state),
+  loading: selectorsTasks.getIsLoading(state),
 });
 
 const mapDispatchToProps = {
-  addTaskThunk: thunk.addTaskThunk,
+  addTaskThunk: thunkTasks.addTaskThunk,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormPage);
