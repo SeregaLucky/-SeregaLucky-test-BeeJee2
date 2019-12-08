@@ -1,6 +1,7 @@
 .contPag {
   display: flex;
   justify-content: center;
+  padding: 0 0 20px 0;
 }
 .pagination {
   display: flex;
