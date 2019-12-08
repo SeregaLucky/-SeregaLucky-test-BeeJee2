@@ -1,6 +1,6 @@
 /* eslint-disable */
 /* import - node_module */
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import T from 'prop-types';
 /* import - CSS */
@@ -39,8 +39,10 @@ class ListItemTasks extends Component {
     statusNow: null,
   };
 
+  itemRef = createRef();
+
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.ckickBord);
+    window.removeEventListener('keydown', this.clickKeyboard);
   }
 
   handleClick = () => {
@@ -55,21 +57,31 @@ class ListItemTasks extends Component {
         statusNow: status === 10,
       });
 
-      window.addEventListener('keydown', this.ckickBord);
+      window.addEventListener('keydown', this.clickKeyboard);
 
       return;
     }
 
     this.setState({ idNowEdit: null });
-    window.removeEventListener('keydown', this.ckickBord);
+    window.removeEventListener('keydown', this.clickKeyboard);
   };
 
   /* Выходить с редктирование по нажатию на Escape */
-  ckickBord = e => {
+  clickKeyboard = e => {
     if (e.code !== 'Escape') return;
 
     this.setState({ idNowEdit: null });
-    window.removeEventListener('keydown', this.ckickBord);
+    window.removeEventListener('keydown', this.clickKeyboard);
+  };
+
+  /* Клик по айтему - выйти с редактирования */
+  handleItemClick = e => {
+    const nodeName = e.target.nodeName;
+
+    if (!this.state.idNowEdit) return;
+    if (nodeName === 'INPUT' || nodeName === 'BUTTON') return;
+
+    this.setState({ idNowEdit: null });
   };
 
   handleChange = ({ target }) => {
@@ -104,7 +116,11 @@ class ListItemTasks extends Component {
     const isChangeTextItem = IdsItemsChangeText.some(itemId => itemId === id);
 
     return (
-      <li className={styles.item}>
+      <li
+        className={styles.item}
+        ref={this.itemRef}
+        onClick={this.handleItemClick}
+      >
         <div className={styles.photo}>
           <img src={image_path} alt="avatar" />
         </div>

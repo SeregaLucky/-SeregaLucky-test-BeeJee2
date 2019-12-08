@@ -78,7 +78,7 @@ class Paginator extends Component {
           breakClassName="break-me"
           pageCount={pageCount} // Общее количество страниц.
           marginPagesDisplayed={2} // Количество страниц для отображения полей.
-          pageRangeDisplayed={5} // диапазон отображаймых страниц
+          pageRangeDisplayed={4} // диапазон отображаймых страниц
           initialPage={nowPage} // Начальная страница
           onPageChange={this.handlePageClick}
           containerClassName={styles.pagination}
