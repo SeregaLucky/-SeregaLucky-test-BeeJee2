@@ -39,6 +39,10 @@ class ListItemTasks extends Component {
     statusNow: null,
   };
 
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.ckickBord);
+  }
+
   handleClick = () => {
     const { id, text, status } = this.props;
     const { idNowEdit } = this.state;
@@ -51,10 +55,21 @@ class ListItemTasks extends Component {
         statusNow: status === 10,
       });
 
+      window.addEventListener('keydown', this.ckickBord);
+
       return;
     }
 
     this.setState({ idNowEdit: null });
+    window.removeEventListener('keydown', this.ckickBord);
+  };
+
+  /* Выходить с редктирование по нажатию на Escape */
+  ckickBord = e => {
+    if (e.code !== 'Escape') return;
+
+    this.setState({ idNowEdit: null });
+    window.removeEventListener('keydown', this.ckickBord);
   };
 
   handleChange = ({ target }) => {
