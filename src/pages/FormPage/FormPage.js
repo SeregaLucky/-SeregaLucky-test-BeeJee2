@@ -52,11 +52,23 @@ class FormPage extends Component {
     addTaskThunk: T.func.isRequired,
   };
 
+  state = {
+    deg: 0,
+  };
+
   inputIds = {
     usernameInputId: shortid.generate(),
     emailInputId: shortid.generate(),
     textInputId: shortid.generate(),
   };
+
+  timerId = null;
+
+  componentDidMount() {
+    const timerId = setInterval(this.changeBackgroundColor, 100);
+
+    this.timerId = timerId;
+  }
 
   componentDidUpdate(prevProps) {
     const { newTask, formError } = this.props;
@@ -65,6 +77,14 @@ class FormPage extends Component {
 
     if (formError) this.errorShow();
   }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
+  }
+
+  changeBackgroundColor = () => {
+    this.setState(state => ({ deg: state.deg + 1 }));
+  };
 
   addNewTask = () => {
     toast.info('Новая задача добавлена!)', {
@@ -80,82 +100,93 @@ class FormPage extends Component {
 
   render() {
     const { loading, addTaskThunk } = this.props;
+    const { deg } = this.state;
     const { usernameInputId, emailInputId, textInputId } = this.inputIds;
 
     return (
-      <Formik
-        initialValues={{ username: '', email: '', text: '' }}
-        onSubmit={(data, { resetForm }) => {
-          const { username, email, text } = data;
-          addTaskThunk(username, email, text);
-          resetForm();
+      <section
+        style={{
+          background: `linear-gradient(${deg}deg, #a5215e 3%, #ee5586 98%)`,
         }}
-        validationSchema={validationSchema}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-        }) => (
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <label htmlFor={usernameInputId} className={styles.label}>
-              <span>Имя:</span>
-              <input
-                type="text"
-                name="username"
-                value={values.username}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                id={usernameInputId}
-              />
+        <Formik
+          initialValues={{ username: '', email: '', text: '' }}
+          onSubmit={(data, { resetForm }) => {
+            const { username, email, text } = data;
+            addTaskThunk(username, email, text);
+            resetForm();
+          }}
+          validationSchema={validationSchema}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+          }) => (
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <label htmlFor={usernameInputId} className={styles.label}>
+                <span>Имя:</span>
+                <input
+                  type="text"
+                  name="username"
+                  value={values.username}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  id={usernameInputId}
+                />
 
-              {errors.username && touched.username && (
-                <span className={styles.error}>{errors.username}</span>
-              )}
-            </label>
+                {errors.username && touched.username && (
+                  <span className={styles.error}>{errors.username}</span>
+                )}
+              </label>
 
-            <label htmlFor={emailInputId} className={styles.label}>
-              <span>E-mail:</span>
-              <input
-                type="text"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                id={emailInputId}
-              />
+              <label htmlFor={emailInputId} className={styles.label}>
+                <span>E-mail:</span>
+                <input
+                  type="text"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  id={emailInputId}
+                />
 
-              {errors.email && touched.email && (
-                <span className={styles.error}>{errors.email}</span>
-              )}
-            </label>
+                {errors.email && touched.email && (
+                  <span className={styles.error}>{errors.email}</span>
+                )}
+              </label>
 
-            <label htmlFor={textInputId} className={styles.label}>
-              <span>Задача:</span>
-              <textarea
-                type="text"
-                name="text"
-                value={values.text}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                id={textInputId}
-                className={styles.textarea}
-              />
+              <label htmlFor={textInputId} className={styles.label}>
+                <span>Задача:</span>
+                <textarea
+                  type="text"
+                  name="text"
+                  value={values.text}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  id={textInputId}
+                  className={styles.textarea}
+                />
 
-              {errors.text && touched.text && (
-                <span className={styles.error}>{errors.text}</span>
-              )}
-            </label>
+                {errors.text && touched.text && (
+                  <span className={styles.error}>{errors.text}</span>
+                )}
+              </label>
 
-            <button type="submit" disabled={loading} className={styles.button}>
-              Add task
-            </button>
-          </form>
-        )}
-      </Formik>
+              <button
+                type="submit"
+                disabled={loading}
+                className={styles.button}
+              >
+                Add task
+              </button>
+            </form>
+          )}
+        </Formik>
+      </section>
     );
   }
 }

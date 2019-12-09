@@ -1,3 +1,7 @@
+section {
+  /* background: linear-gradient(0deg, #834d9b, #d04ed6); */
+  min-height: calc(100vh - 69px);
+}
 .form {
   width: 300px;
   margin: 0 auto;
