@@ -22,6 +22,7 @@
   border: none;
   color: #fff;
   margin: 0 0 10px 0;
+  display: block;
 }
 .buttonEdit:focus,
 .buttonEdit:hover {
@@ -48,6 +49,11 @@
 .buttonSend:hover {
   transition: 0.2s;
   box-shadow: 0 2px 8px 0 rgba(62, 62, 79, 0.23);
+}
+
+.formChange {
+  display: inline-block;
+  padding: 2px;
 }
 
 @media screen and (min-width: 766px) {

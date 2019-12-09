@@ -39,8 +39,6 @@ class ListItemTasks extends Component {
     statusNow: null,
   };
 
-  itemRef = createRef();
-
   componentWillUnmount() {
     window.removeEventListener('keydown', this.clickKeyboard);
   }
@@ -76,10 +74,13 @@ class ListItemTasks extends Component {
 
   /* Клик по айтему - выйти с редактирования */
   handleItemClick = e => {
+    console.log(e.target);
     const nodeName = e.target.nodeName;
 
     if (!this.state.idNowEdit) return;
-    if (nodeName === 'INPUT' || nodeName === 'BUTTON') return;
+    if (nodeName === 'INPUT' || nodeName === 'BUTTON' || nodeName === 'FORM') {
+      return;
+    }
 
     this.setState({ idNowEdit: null });
   };
@@ -116,11 +117,7 @@ class ListItemTasks extends Component {
     const isChangeTextItem = IdsItemsChangeText.some(itemId => itemId === id);
 
     return (
-      <li
-        className={styles.item}
-        ref={this.itemRef}
-        onClick={this.handleItemClick}
-      >
+      <li className={styles.item} onClick={this.handleItemClick}>
         <div className={styles.photo}>
           <img src={image_path} alt="avatar" />
         </div>
@@ -171,7 +168,7 @@ class ListItemTasks extends Component {
 
           {/* FORM CHANGE */}
           {token && idNowEdit === id && (
-            <form onSubmit={this.handleSubmit}>
+            <form className={styles.formChange} onSubmit={this.handleSubmit}>
               <input
                 type="text"
                 name="textNow"

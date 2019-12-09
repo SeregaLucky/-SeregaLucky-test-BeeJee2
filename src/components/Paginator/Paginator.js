@@ -72,7 +72,7 @@ class Paginator extends Component {
     return (
       <div className={styles.contPag}>
         <ReactPaginate
-          previousLabel="previous"
+          previousLabel="prev"
           nextLabel="next"
           breakLabel="..."
           breakClassName="break-me"
