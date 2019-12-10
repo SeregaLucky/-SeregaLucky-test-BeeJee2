@@ -1,17 +1,24 @@
-/* .titleInside {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
+.section {
+  min-height: calc(100vh - 69px);
+  background-image: url(./photo/login1920x1080-min.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .form {
-  width: 300px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  width: 300px;
   padding: 20px;
-  background: linear-gradient(89deg, #a5215e 3%, #ee5586 98%);
+  background: linear-gradient(
+    89deg,
+    rgba(165, 33, 94, 0.8) 3%,
+    rgba(238, 85, 134, 0.5) 98%
+  );
 }
 .form label {
   display: block;
@@ -62,4 +69,10 @@ form label:not(:last-child) {
   left: 0;
   color: red;
   background: #fff;
+}
+
+@media (min-resolution: 192dpi), (min-resolution: 192dppx) {
+  .section {
+    background-image: url(./photo/login3840x2160-min.jpg);
+  }
 }

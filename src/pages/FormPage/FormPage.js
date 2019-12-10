@@ -105,6 +105,7 @@ class FormPage extends Component {
 
     return (
       <section
+        className={styles.section}
         style={{
           background: `linear-gradient(${deg}deg, #a5215e 3%, #ee5586 98%)`,
         }}

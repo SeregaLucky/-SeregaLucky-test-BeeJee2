@@ -1,5 +1,4 @@
-section {
-  /* background: linear-gradient(0deg, #834d9b, #d04ed6); */
+.section {
   min-height: calc(100vh - 69px);
 }
 .form {
