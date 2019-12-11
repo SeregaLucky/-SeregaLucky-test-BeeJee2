@@ -12,7 +12,14 @@ const SPINNER_ROOT = document.querySelector('#spinner-root');
 const Spinner = () =>
   createPortal(
     <div className={styles.backDrop}>
-      <p className={styles.text}>Loading...</p>
+      <div className={styles.loader}>
+        <div className={`${styles.face} ${styles.face1}`}>
+          <div className={styles.circle} />
+        </div>
+        <div className={`${styles.face} ${styles.face2}`}>
+          <div className={styles.circle} />
+        </div>
+      </div>
     </div>,
     SPINNER_ROOT,
   );
