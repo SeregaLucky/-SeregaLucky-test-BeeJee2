@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+
 /* import - reducers */
 import tasksReducers from './tasks/tasksReducers';
 import loginReducers from './login/loginReducer';
