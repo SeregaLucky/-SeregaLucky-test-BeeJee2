@@ -1,24 +1,44 @@
 .section {
   min-height: calc(100vh - 69px);
-  background-image: url(./photo/login1920x1080-min.jpg);
+  background: radial-gradient(rgba(1, 6, 21, 1) 20%, rgba(1, 6, 21, 0)),
+    url(./photo/login1920x1080-min.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contForm {
+  position: relative;
+}
+.contForm::after,
+.contForm::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: 0;
+}
+.contForm::after {
+  filter: blur(40px);
+}
+.contForm::before,
+.contForm::after {
+  background: linear-gradient(235deg, #772aff, #010615, #2196f3);
 }
 
 .form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
   width: 300px;
   padding: 20px;
-  background: linear-gradient(
-    89deg,
-    rgba(165, 33, 94, 0.8) 3%,
-    rgba(238, 85, 134, 0.5) 98%
-  );
+  background: linear-gradient(89deg, #a5215e 3%, #ee5586 98%);
+
+  position: relative;
+  z-index: 1;
 }
 .form label {
   display: block;
@@ -26,7 +46,7 @@
   position: relative;
 }
 form label:not(:last-child) {
-  margin: 0 0 20px 0;
+  margin: 0 0 24px 0;
 }
 .form span {
   display: block;

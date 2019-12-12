@@ -82,55 +82,57 @@ class LoginPage extends Component {
 
     return (
       <section className={styles.section}>
-        <Formik
-          initialValues={{ login: '', password: '' }}
-          onSubmit={(data, { resetForm }) => {
-            const { login, password } = data;
+        <div className={styles.contForm}>
+          <Formik
+            initialValues={{ login: '', password: '' }}
+            onSubmit={(data, { resetForm }) => {
+              const { login, password } = data;
 
-            loginingThunk(login, password);
+              loginingThunk(login, password);
 
-            resetForm();
-          }}
-          validationSchema={validationSchema}
-        >
-          {({ errors, touched }) => (
-            <Form className={styles.form}>
-              <label htmlFor={loginInputId}>
-                <span>Login:</span>
-                <Field
-                  type="text"
-                  placeholder="Login..."
-                  name="login"
-                  id={loginInputId}
-                />
-                {errors.login && touched.login && (
-                  <span className={styles.error}>{errors.login}</span>
-                )}
-              </label>
+              resetForm();
+            }}
+            validationSchema={validationSchema}
+          >
+            {({ errors, touched }) => (
+              <Form className={styles.form}>
+                <label htmlFor={loginInputId}>
+                  <span>Login:</span>
+                  <Field
+                    type="text"
+                    placeholder="Login..."
+                    name="login"
+                    id={loginInputId}
+                  />
+                  {errors.login && touched.login && (
+                    <span className={styles.error}>{errors.login}</span>
+                  )}
+                </label>
 
-              <label htmlFor={passwordInputId}>
-                <span>Password</span>
-                <Field
-                  type="password"
-                  placeholder="Password..."
-                  name="password"
-                  id={passwordInputId}
-                />
-                {errors.password && touched.password && (
-                  <span className={styles.error}>{errors.password}</span>
-                )}
-              </label>
+                <label htmlFor={passwordInputId}>
+                  <span>Password</span>
+                  <Field
+                    type="password"
+                    placeholder="Password..."
+                    name="password"
+                    id={passwordInputId}
+                  />
+                  {errors.password && touched.password && (
+                    <span className={styles.error}>{errors.password}</span>
+                  )}
+                </label>
 
-              <button
-                type="submit"
-                className={styles.button}
-                disabled={loading}
-              >
-                Log in
-              </button>
-            </Form>
-          )}
-        </Formik>
+                <button
+                  type="submit"
+                  className={styles.button}
+                  disabled={loading}
+                >
+                  Log in
+                </button>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </section>
     );
   }
