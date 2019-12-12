@@ -74,7 +74,6 @@ class ListItemTasks extends Component {
 
   /* Клик по айтему - выйти с редактирования */
   handleItemClick = e => {
-    console.log(e.target);
     const nodeName = e.target.nodeName;
 
     if (!this.state.idNowEdit) return;
