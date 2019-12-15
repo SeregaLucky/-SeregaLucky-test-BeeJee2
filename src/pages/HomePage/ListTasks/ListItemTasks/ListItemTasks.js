@@ -99,8 +99,6 @@ class ListItemTasks extends Component {
   };
 
   render() {
-    console.log('ListItemTasks');
-
     const {
       id,
       image_path: imagePath,
