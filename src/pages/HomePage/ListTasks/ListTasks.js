@@ -11,6 +11,7 @@ import ListItemTasks from './ListItemTasks/ListItemTasks';
  */
 const ListTasks = ({ listTasks }) => (
   <ul className={styles.list}>
+    {console.log('ListTasks')}
     {listTasks.map(({ id }) => (
       <ListItemTasks key={id} id={id} />
     ))}

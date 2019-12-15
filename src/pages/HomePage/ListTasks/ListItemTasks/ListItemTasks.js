@@ -1,6 +1,5 @@
-/* eslint-disable */
 /* import - node_module */
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import T from 'prop-types';
 /* import - CSS */
@@ -74,7 +73,7 @@ class ListItemTasks extends Component {
 
   /* Клик по айтему - выйти с редактирования */
   handleItemClick = e => {
-    const nodeName = e.target.nodeName;
+    const { nodeName } = e.target;
 
     if (!this.state.idNowEdit) return;
     if (nodeName === 'INPUT' || nodeName === 'BUTTON' || nodeName === 'FORM') {
@@ -100,9 +99,11 @@ class ListItemTasks extends Component {
   };
 
   render() {
+    console.log('ListItemTasks');
+
     const {
       id,
-      image_path,
+      image_path: imagePath,
       username,
       email,
       text,
@@ -116,9 +117,13 @@ class ListItemTasks extends Component {
     const isChangeTextItem = IdsItemsChangeText.some(itemId => itemId === id);
 
     return (
-      <li className={styles.item} onClick={this.handleItemClick}>
+      <li
+        className={styles.item}
+        onClick={this.handleItemClick}
+        role="presentation"
+      >
         <div className={styles.photo}>
-          <img src={image_path} alt="avatar" />
+          <img src={imagePath} alt="avatar" />
         </div>
 
         <div>

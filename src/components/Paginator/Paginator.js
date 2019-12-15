@@ -72,8 +72,8 @@ class Paginator extends Component {
     return (
       <div className={styles.contPag}>
         <ReactPaginate
-          previousLabel="prev"
-          nextLabel="next"
+          previousLabel={pageCount > 1 && 'prev'}
+          nextLabel={pageCount > 1 && 'next'}
           breakLabel="..."
           breakClassName="break-me"
           pageCount={pageCount} // Общее количество страниц.

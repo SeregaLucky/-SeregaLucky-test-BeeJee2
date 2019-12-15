@@ -50,8 +50,7 @@ class Filter extends Component {
     const { location } = this.props;
 
     /* Находим параметры запроса */
-    const { sortField } = this.findParams(location.search);
-    const { sortDirection } = this.findParams(location.search);
+    const { sortField, sortDirection } = this.findParams(location.search);
 
     if (sortField && sortDirection) {
       const fieldSort = `&sort_field=${sortField}&sort_direction=${sortDirection}`;
@@ -65,14 +64,14 @@ class Filter extends Component {
     const { fieldSort } = this.state;
 
     /* Находим старые параметры запроса */
-    const sortFieldPrev = this.findParams(prevState.fieldSort).sortField;
-    const sortDirectionPrev = this.findParams(prevState.fieldSort)
-      .sortDirection;
+    const {
+      sortField: sortFieldPrev,
+      sortDirection: sortDirectionPrev,
+    } = this.findParams(prevState.fieldSort);
 
     /* Находим параметры запроса */
     const { page } = this.findParams(location.search);
-    const { sortField } = this.findParams(fieldSort);
-    const { sortDirection } = this.findParams(fieldSort);
+    const { sortField, sortDirection } = this.findParams(fieldSort);
 
     if (sortFieldPrev === sortField && sortDirectionPrev === sortDirection) {
       return;
